@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/context   
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- 配置自动扫描 -->
+	<context:component-scan base-package="java.entity"></context:component-scan>
+
+	<!-- 切面配置 -->
+	<aop:config proxy-target-class="false">
+		<aop:pointcut id="TestService"
+			expression="execution(public * java.service.*.*(..))" />
+		<aop:advisor advice-ref="TesttxAdvice" pointcut-ref="TestService" />
+	</aop:config>
+
+	<!-- 方法开启事物 -->
+	<tx:advice id="TesttxAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="Test1" propagation="REQUIRED" read-only="false" />
+			<tx:method name="Test2*" propagation="NOT_SUPPORTED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+</beans>

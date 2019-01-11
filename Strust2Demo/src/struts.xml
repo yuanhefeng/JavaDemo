@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--struts.serve.static.browserCatch页面静态缓存,开发调试过程中设置为false -->
+	<!--struts.configuration.xml.reload当struts.xml改变时系统自动加载,开发调试过程中设置为true -->
+	<!--struts.devMode打印出详细错误信息,开发调试过程中设置为true -->
+	<constant name="struts.custom.i18n.resources" value="messageResource" />
+	<constant name="struts.serve.static.browserCatch" value="false"></constant>
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+	<constant name="struts.devMode" value="false"></constant>
+	<constant name="struts.action.extension" value="do,action"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.objectFactory" value="spring"></constant>
+	
+	<package name="Action" namespace="/" extends="json-default,struts-default">	
+		<action name="TestAction" class="operInfoAction">
+			<result name="TestReturn">jsp/testreturn.jsp</result>
+			<result name="TestReturn2" type="stream">
+				<param name="TestReturn2">TestReturn2</param>
+			</result>
+		</action>
+	</package>
+	
+</struts>
